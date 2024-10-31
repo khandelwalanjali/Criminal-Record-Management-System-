@@ -1,0 +1,78 @@
+import mysql.connector as mc
+con=mc.connect(host='localhost',user='root',password='root')
+cur=con.cursor()
+def createdatabase():
+    cur.execute('create database Criminal')
+    print('Database Successfully Created')
+def showdatabases():
+    cur.execute('show databases')
+    for x in cur:
+        print(x)
+import mysql.connector as mc
+con=mc.connect(host='localhost',user='root',password='root',database='Criminal')
+cur=con.cursor()
+def createtable():
+    s1="CREATE TABLE Record (ID INT,NAME CHAR(20),CRIME           char(30),PUNISHMENTLEFT VARCHAR(100),JUDJEMENT  CHAR(50),ACCUISEDNAME VARCHAR(20));"
+    cur.execute(s1)
+    print("Table Created Successfully")
+    cur.execute('desc Record')
+    for x in cur:
+        print(x)
+def insertrecord():
+    n=int(input("Enter ID"))
+    b=input("Enter Name")
+    c=input("Enter Crime")
+    d=input("Enter Punishment Left")
+    r=input("Enter Judjement")
+    u=input("Enter Accuised Name")
+    cur.execute("insert into Record(ID,NAME,CRIME,PUNISHMENTLEFT,JUDJEMENT,ACCUISEDNAME ) values({},'{}','{}','{}','{}','{}');".format(n,b,c,d,r,u))
+    con.commit()
+    print("Records inserted")
+def displayallrecords():
+    cur.execute('select * from Record')
+    z=cur.fetchall()
+    for i in z:
+        print(i)
+def displayselectedrecords():
+    n=eval(input('Enter Id'))
+    cur.execute('select * from Record where ID={};'.format(n))
+    z=cur.fetchall()
+    for i in z:
+        print('Detail is',i)
+def updaterecord():
+     z=int(input("Enter Criminal Id which you want to updated"))
+     m=input("Enter ACCUISED Name")
+     cur.execute("Update Record set ACCUISEDNAME='{}' where ID='{}';".format(m,z))
+     print('Record Successfully Updated')
+     con.commit()
+def deleterecords():
+     m=int(input('Enter Criminal Id whose Records you want to Delete Record'))
+     cur.execute('delete from Record where ID={};'.format(m))
+     con.commit()
+     print('Record Successfully Deleted')
+choice='y'
+while choice=='y':
+    print(' To Insert record Enter 1 ')
+    print('To Display All record Enter 2')
+    print('To Display Selected record Enter 3')
+    print('To Update record Enter 4 ')
+    print('To Delete record Enter 5 ')
+    print('To Exit Enter 6')
+    i=int(input(' Enter your choice '))
+    if i==1:
+        insertrecord()
+    elif i==2:
+        displayallrecords() 
+    elif i==3:
+        displayselectedrecords()
+    elif i==4:
+        updaterecord()
+    elif i==5:
+        deleterecords()
+    elif i==6:
+        print('You are out')
+        break
+    choice=input('do you want to continue')
+#createdatabase()
+#showdatabases()
+#createtable()

@@ -12,7 +12,7 @@ import mysql.connector as mc
 con=mc.connect(host='localhost',user='root',password='root',database='Criminal')
 cur=con.cursor()
 def createtable():
-    s1="CREATE TABLE Record (ID INT,NAME CHAR(20),CRIME           char(30),PUNISHMENTLEFT VARCHAR(100),JUDJEMENT  CHAR(50),ACCUISEDNAME VARCHAR(20));"
+    s1="CREATE TABLE Record (ID INT,NAME CHAR(20),CRIME char(30),PUNISHMENTLEFT VARCHAR(100),JUDJEMENT CHAR(50),ACCUISEDNAME VARCHAR(20));"
     cur.execute(s1)
     print("Table Created Successfully")
     cur.execute('desc Record')
